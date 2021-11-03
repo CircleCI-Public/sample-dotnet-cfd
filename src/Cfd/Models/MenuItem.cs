@@ -62,10 +62,8 @@ namespace Cfd.Models
         /// <value>URL to an image of the menu item.  This should be the image from the /image endpoint </value>
         [Required]
         [DataMember(Name="imageId", EmitDefaultValue=false)]
-        [ForeignKey("Image")]
         public int ImageId { get; set; }
-
-        public virtual Image Image { get; set; }
+        public Image Image { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

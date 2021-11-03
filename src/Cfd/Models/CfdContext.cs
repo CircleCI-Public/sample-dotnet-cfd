@@ -9,10 +9,17 @@ namespace Cfd.Models
 {
     public class CfdContext : DbContext
     {
+
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<MenuItem> CartItems { get; set; }
+        public DbSet<Image> Images { get; set; }
+
+
         public CfdContext(DbContextOptions<CfdContext> options)
             : base(options)
         {
         }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,11 +28,6 @@ namespace Cfd.Models
                 .UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=CfdContext;User=sa;Password=r22rbf8*PUHjqzb3",
             builder => builder.EnableRetryOnFailure());
         }
-
-
-        public DbSet<MenuItem> MenuItems { get; set; }
-        public DbSet<MenuItem> CartItems { get; set; }
-        public DbSet<Image> Images { get; set; }
 
     }
 }

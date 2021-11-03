@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cfd.Migrations
 {
     [DbContext(typeof(CfdContext))]
-    [Migration("20211102210747_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211103222350_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,8 +59,7 @@ namespace Cfd.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId")
-                        .IsUnique();
+                    b.HasIndex("ImageId");
 
                     b.ToTable("MenuItem");
                 });
@@ -68,17 +67,12 @@ namespace Cfd.Migrations
             modelBuilder.Entity("Cfd.Models.MenuItem", b =>
                 {
                     b.HasOne("Cfd.Models.Image", "Image")
-                        .WithOne("Menu")
-                        .HasForeignKey("Cfd.Models.MenuItem", "ImageId")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Image");
-                });
-
-            modelBuilder.Entity("Cfd.Models.Image", b =>
-                {
-                    b.Navigation("Menu");
                 });
 #pragma warning restore 612, 618
         }

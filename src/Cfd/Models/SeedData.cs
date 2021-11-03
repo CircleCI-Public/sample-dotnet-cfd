@@ -79,14 +79,15 @@ namespace Cfd.Models
                 foreach (var menuItem in menuListSeed)
                 {
                     string fileName = imagePath + "\\" + menuItem["imageId"] + ".jpg";
-                    Image image = img.Add(fileName);
-                    menuItem["imageId"] = image.Id;
-                    Console.WriteLine(menuItem["imageId"]);
+
+                    mi.Image = img.Add(fileName);
                     mi.Description = menuItem["description"];
-                    mi.ImageId = menuItem["imageId"];
                     mi.Price = menuItem["price"];
                     mi.Name = menuItem["name"];
-                    //mi.Id = menuItem["id"];
+                    context.Images.Add(mi.Image);
+                    context.SaveChanges();
+                    mi.ImageId = mi.Image.Id;
+                    context.SaveChanges();
                     context.MenuItems.Add(mi);
                     context.SaveChanges();
                 }

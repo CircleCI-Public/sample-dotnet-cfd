@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cfd.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,8 +45,7 @@ namespace Cfd.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItem_ImageId",
                 table: "MenuItem",
-                column: "ImageId",
-                unique: true);
+                column: "ImageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
