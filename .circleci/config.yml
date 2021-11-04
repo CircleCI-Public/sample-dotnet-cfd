@@ -1,0 +1,25 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0 
+
+workflows:
+  build-and-deploy-to-heroku:
+    jobs:
+      - build-and-test
+jobs:
+  build-and-test:
+    executor:
+      name: win/default
+      version: edge
+    steps:
+      - checkout
+      - run: 
+          command: |
+            dotnet restore src\Cfd
+            dotnet build src\Cfd
+   
+    
+
+      
+            
