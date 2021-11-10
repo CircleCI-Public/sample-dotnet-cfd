@@ -32,6 +32,7 @@ namespace Cfd.Models
         /// </summary>
         [Required]
         [DataMember(Name="id", EmitDefaultValue=false)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         /// <summary>

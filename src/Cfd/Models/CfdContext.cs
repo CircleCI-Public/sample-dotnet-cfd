@@ -25,7 +25,8 @@ namespace Cfd.Models
         {
             optionsBuilder
                 .EnableSensitiveDataLogging()
-                .UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=CfdContext;User=sa;Password=r22rbf8*PUHjqzb3",
+                .UseSqlServer(@"Data Source=localhost,1433;Initial Catalog=CfdContext;User ID=sa;Password=r22rbf8*PUHjqzb3",
+
             builder => builder.EnableRetryOnFailure());
         }
 

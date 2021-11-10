@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.SqlServer;
+
 
 
 
@@ -28,10 +30,9 @@ namespace Cfd.Models
                     return;   // DB has been seeded
                 }
 
-                MenuItem mi = new MenuItem();
-                Image img = new Image();
+                string exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string imagePath = Path.Join(exeDir, "Database", "images");
 
-                string imagePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Database\\images";
 
                 List<dynamic> menuListSeed = new List<dynamic>();
 
@@ -78,16 +79,17 @@ namespace Cfd.Models
 
                 foreach (var menuItem in menuListSeed)
                 {
-                    string fileName = imagePath + "\\" + menuItem["imageId"] + ".jpg";
+                    MenuItem mi = new MenuItem();
+                    Image img = new Image();
+
+                    string fileName = Path.Combine(imagePath, menuItem["imageId"] + ".jpg");
 
                     mi.Image = img.Add(fileName);
                     mi.Description = menuItem["description"];
                     mi.Price = menuItem["price"];
                     mi.Name = menuItem["name"];
                     context.Images.Add(mi.Image);
-                    context.SaveChanges();
                     mi.ImageId = mi.Image.Id;
-                    context.SaveChanges();
                     context.MenuItems.Add(mi);
                     context.SaveChanges();
                 }
