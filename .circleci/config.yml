@@ -4,7 +4,7 @@ orbs:
   win: circleci/windows@2.2.0 
 
 workflows:
-  build-and-deploy-to-heroku:
+  build-and-unittest:
     jobs:
       - build-and-test
 jobs:
@@ -15,17 +15,20 @@ jobs:
     steps:
       - checkout
       - run:
-          name: echo password
-          command: echo $SA_PWD
-      - run:
-          name: Run SQL Server 2019 docker container
-          command:  docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$SA_PWD" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
-      - run:
           name: Restore project dependencies and tools
           command: dotnet restore src\Cfd
       - run:
           name: Build project 
           command: dotnet build src\Cfd
+      - run:
+          name: "Running tests"
+          command: |
+            mkdir test-results
+            dotnet test ./Cfd.Tests --logger:"junit;LogFilePath=test-results/dotnet-sample-cfd/xunit.xml"
+      - store_test_results:
+          path: ./Cfd.Tests/test-results
+      - store_artifacts:
+          path: ./Cfd.Tests/test-results
   
    
     
