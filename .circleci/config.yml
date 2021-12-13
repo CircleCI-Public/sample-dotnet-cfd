@@ -11,7 +11,7 @@ jobs:
   build-and-test:
     executor:
       name: win/default
-      version: edge
+      version: stable
     steps:
       - checkout
       - run:
