@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install .net sdk 5
+          command: choco install dotnet-5.0-sdk -y 
+      - run:
           name: Restore project dependencies and tools
           command: dotnet restore src\Cfd
       - run:
