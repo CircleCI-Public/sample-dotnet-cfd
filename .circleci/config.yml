@@ -1,7 +1,7 @@
 version: 2.1
 
-orbs:
-  win: circleci/windows@2.2.0 
+#orbs:
+#  win: circleci/windows@2.2.0 
 
 workflows:
   build-and-unittest:
@@ -9,9 +9,10 @@ workflows:
       - build-and-test
 jobs:
   build-and-test:
-    executor:
-      name: win/default
-      version: edge
+    machine:
+      image: 'windows-server-2022-vs2022:edge'
+      resource_class: windows.large
+      shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
       - run:
